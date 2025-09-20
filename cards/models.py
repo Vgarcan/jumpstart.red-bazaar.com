@@ -28,14 +28,15 @@ class Card(models.Model):
 
     name = models.CharField(max_length=100)
     mana_cost = models.CharField(max_length=20, blank=True, null=True)
-    type_line = models.CharField(max_length=100, choices=TYPES_CHOICES)
-    primary_type = models.CharField(max_length=50, blank=True, null=True)
-    secondary_types = models.CharField(max_length=100, blank=True, null=True)
+    type = models.CharField(max_length=100, blank=True, null=True)
+    subtypes = models.CharField(max_length=100, blank=True, null=True)
+    image_url = models.URLField(max_length=200, blank=True, null=True)
     box_description = models.TextField(blank=True, null=True)
+    set = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Deck(models.Model):
@@ -78,6 +79,18 @@ class Deck(models.Model):
 
     def __str__(self):
         return self.title
+
+    def card_count(self):
+        return self.cards.count()
+
+    def unique_card_count(self):
+        return self.cards.values('name').distinct().count()
+
+    def save(self):
+        # Asegura que el formato esté en el conjunto de opciones
+        if self.format not in dict(self.FORMAT_CHOICES):
+            raise ValueError(f"Formato inválido: {self.format}")
+        super().save()
 
 
 class CardInDeck(models.Model):

@@ -1,0 +1,45 @@
+<!-- Filters Component -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Format</label>
+                        <select class="form-select" name="format">
+                            <option value="">All Formats</option>
+                            <option value="Standard" {% if request.GET.format == 'Standard' %}selected{% endif %}>Standard</option>
+                            <option value="Modern" {% if request.GET.format == 'Modern' %}selected{% endif %}>Modern</option>
+                            <option value="Commander" {% if request.GET.format == 'Commander' %}selected{% endif %}>Commander</option>
+                            <option value="Legacy" {% if request.GET.format == 'Legacy' %}selected{% endif %}>Legacy</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Colors</label>
+                        <select class="form-select" name="color_identity">
+                            <option value="">All Colors</option>
+                            <option value="Mono" {% if request.GET.color_identity == 'Mono' %}selected{% endif %}>Mono Color</option>
+                            <option value="Multi" {% if request.GET.color_identity == 'Multi' %}selected{% endif %}>Multi Color</option>
+                            <option value="Colorless" {% if request.GET.color_identity == 'Colorless' %}selected{% endif %}>Colorless</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Search</label>
+                        <div class="input-group">
+                            <input type="text" 
+                                   class="form-control" 
+                                   name="search" 
+                                   placeholder="Deck name..." 
+                                   value="{{ request.GET.search }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<!-- Color Badges Component -->
+{% if colors %}
+    {% for color in colors %}
+        {% if color == 'W' %}
+            <span class="badge bg-light text-dark me-1">
+                <i class="fas fa-sun me-1"></i>White
+            </span>
+        {% elif color == 'U' %}
+            <span class="badge bg-primary me-1">
+                <i class="fas fa-tint me-1"></i>Blue
+            </span>
+        {% elif color == 'B' %}
+            <span class="badge bg-dark me-1">
+                <i class="fas fa-skull me-1"></i>Black
+            </span>
+        {% elif color == 'R' %}
+            <span class="badge bg-danger me-1">
+                <i class="fas fa-fire me-1"></i>Red
+            </span>
+        {% elif color == 'G' %}
+            <span class="badge bg-success me-1">
+                <i class="fas fa-leaf me-1"></i>Green
+            </span>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <span class="badge bg-secondary">Colorless</span>
+{% endif %}

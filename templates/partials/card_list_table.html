@@ -1,0 +1,35 @@
+<!-- Card List Table Component -->
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Quantity</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Type</th>
+                <th>Rarity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+                <tr>
+                    <td>
+                        <span class="badge bg-primary">{{ card.quantity|default:1 }}</span>
+                    </td>
+                    <td class="fw-bold">{{ card.name }}</td>
+                    <td>
+                        {% include 'partials/mana_cost.html' with mana_cost=card.manaCost %}
+                    </td>
+                    <td>{{ card.type }}</td>
+                    <td>
+                        {% include 'partials/rarity_badge.html' with rarity=card.rarity %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No cards found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

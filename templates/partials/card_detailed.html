@@ -1,0 +1,57 @@
+<!-- Detailed Card Component -->
+<div class="card card-detailed h-100 shadow-sm">
+    <div class="row g-0 h-100">
+        <div class="col-md-4">
+            <img src="{{ card.imageUrl|default:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=420&fit=crop' }}" 
+                 class="img-fluid rounded-start h-100" 
+                 alt="{{ card.name }}" 
+                 style="object-fit: cover; min-height: 200px;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body h-100 d-flex flex-column">
+                <div class="mb-3">
+                    <h5 class="card-title fw-bold">{{ card.name }}</h5>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        {% include 'partials/mana_cost.html' with mana_cost=card.manaCost %}
+                        <span class="badge bg-secondary">CMC {{ card.cmc|default:0 }}</span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <p class="card-text fw-semibold text-primary">{{ card.type }}</p>
+                    {% if card.power and card.toughness %}
+                        <p class="card-text">
+                            <strong>Power/Toughness:</strong> {{ card.power }}/{{ card.toughness }}
+                        </p>
+                    {% endif %}
+                </div>
+                
+                {% if card.text %}
+                    <div class="mb-3 flex-grow-1">
+                        <p class="card-text small">{{ card.text|linebreaks }}</p>
+                    </div>
+                {% endif %}
+                
+                <div class="mt-auto">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {% include 'partials/rarity_badge.html' with rarity=card.rarity %}
+                            {% if card.set %}
+                                <span class="badge bg-info">{{ card.set }}</span>
+                            {% endif %}
+                        </div>
+                        {% if card.quantity %}
+                            <span class="badge bg-primary fs-6">{{ card.quantity }}x</span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if card.artist %}
+                        <small class="text-muted d-block mt-2">
+                            <i class="fas fa-palette me-1"></i>{{ card.artist }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

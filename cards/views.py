@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Decks, Cards
+from .models import Deck, Card
+import requests
+from django.http import JsonResponse
+import re
+
 
 # Create your views here.
 
-# ? READ
-# get all decks view
-
-
-class PostListView(ListView):
+class DeckListView(ListView):
     """Displays a list of posts."""
-    model = Decks
+    model = Deck
     template_name = "cards/decks_list.html"
     context_object_name = "decks"  # Custom context variable
     ordering = ['-created_at']  # Order by latest posts first
@@ -22,7 +22,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     """Displays a single post's details."""
-    model = Cards
+    model = Card
     template_name = "cards/deck_detail.html"
     context_object_name = "post"
 
@@ -31,7 +31,7 @@ class PostDetailView(DetailView):
 # create deck view
 class PostCreateView(CreateView):
     """Creates a new post."""
-    model = Decks
+    model = Deck
     template_name = "cards/deck_form.html"
     fields = ['title', 'content']  # Fields to include in the form
     success_url = reverse_lazy('post_list')  # Redirect after success
@@ -42,7 +42,7 @@ class PostCreateView(CreateView):
 
 class PostUpdateView(UpdateView):
     """Updates an existing post."""
-    model = Decks
+    model = Deck
     template_name = "cards/deck_form.html"
     fields = ['title', 'content']  # Fields to include in the form
     success_url = reverse_lazy('post_list')  # Redirect after success
@@ -53,7 +53,7 @@ class PostUpdateView(UpdateView):
 
 class PostDeleteView(DeleteView):
     """Deletes an existing post."""
-    model = Decks
+    model = Deck
     template_name = "cards/deck_confirm_delete.html"
     success_url = reverse_lazy('post_list')  # Redirect after success
 
@@ -61,7 +61,7 @@ class PostDeleteView(DeleteView):
 # delete all decks view
 class PostDeleteAllView(DeleteView):
     """Deletes all existing posts."""
-    model = Decks
+    model = Deck
     template_name = "cards/deck_confirm_delete_all.html"
     success_url = reverse_lazy('post_list')  # Redirect after success
 
@@ -70,7 +70,7 @@ class PostDeleteAllView(DeleteView):
 
 class PostDeleteAllCardsView(DeleteView):
     """Deletes all cards in a deck."""
-    model = Decks
+    model = Deck
     template_name = "cards/deck_confirm_delete_all_cards.html"
     success_url = reverse_lazy('post_list')  # Redirect after success
 

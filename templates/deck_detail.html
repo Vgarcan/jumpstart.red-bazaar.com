@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ deck.name }} - My MTG Collection{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Breadcrumb -->
+    {% include 'partials/breadcrumb.html' with breadcrumbs=breadcrumbs %}
+
+    <!-- Deck Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h1 class="card-title mb-2">{{ deck.name }}</h1>
+                            <p class="card-text mb-3">{{ deck.description }}</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% include 'partials/color_badges.html' with colors=deck.colors %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="mb-2">
+                                <span class="badge bg-light text-dark fs-6">{{ deck.format }}</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-light">Total cards: </span>
+                                <span class="fw-bold fs-5">{{ deck.total_cards }}</span>
+                            </div>
+                            <div>
+                                <span class="text-light">Average cost: </span>
+                                <span class="fw-bold fs-5">{{ deck.average_cmc|default:0|floatformat:1 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deck Stats -->
+    {% include 'partials/deck_stats.html' with stats=deck_stats %}
+
+    <!-- Additional Info Row -->
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <!-- Mana Curve -->
+            {% include 'partials/mana_curve.html' with mana_curve=mana_curve max_count=max_mana_count average_cmc=deck.average_cmc %}
+        </div>
+        <div class="col-lg-4">
+            <!-- Export Options -->
+            {% include 'partials/deck_export.html' with deck=deck %}
+        </div>
+    </div>
+
+    <!-- Card List -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Card List</h5>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary active" id="listViewBtn">
+                            <i class="fas fa-list"></i> List
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" id="gridViewBtn">
+                            <i class="fas fa-th"></i> Grid
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- List View -->
+                    <div id="listView">
+                        {% include 'partials/card_list_table.html' with cards=cards %}
+                    </div>
+
+                    <!-- Grid View -->
+                    <div id="gridView" class="d-none">
+                        {% include 'partials/card_grid.html' with cards=cards %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="{% url 'deck_list' %}" class="btn btn-lg btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>
+                Back to Collection
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const listViewBtn = document.getElementById('listViewBtn');
+    const gridViewBtn = document.getElementById('gridViewBtn');
+    const listView = document.getElementById('listView');
+    const gridView = document.getElementById('gridView');
+
+    listViewBtn.addEventListener('click', function() {
+        listViewBtn.classList.add('active');
+        gridViewBtn.classList.remove('active');
+        listView.classList.remove('d-none');
+        gridView.classList.add('d-none');
+    });
+
+    gridViewBtn.addEventListener('click', function() {
+        gridViewBtn.classList.add('active');
+        listViewBtn.classList.remove('active');
+        gridView.classList.remove('d-none');
+        listView.classList.add('d-none');
+    });
+});
+</script>
+{% endblock %}

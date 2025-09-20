@@ -1,0 +1,50 @@
+<!-- Mana Cost Display Component -->
+{% load mtg_extras %}
+
+<div class="mana-cost d-inline-flex align-items-center" style="gap: 2px;">
+    {% if mana_cost %}
+        {% for symbol in mana_cost|parse_mana_cost %}
+            {% if symbol == 'W' %}
+                <span class="mana-symbol" title="White" style="font-size: 1.2em;">
+                    <i class="ms ms-w"></i>
+                </span>
+            {% elif symbol == 'U' %}
+                <span class="mana-symbol" title="Blue" style="font-size: 1.2em;">
+                    <i class="ms ms-u"></i>
+                </span>
+            {% elif symbol == 'B' %}
+                <span class="mana-symbol" title="Black" style="font-size: 1.2em;">
+                    <i class="ms ms-b"></i>
+                </span>
+            {% elif symbol == 'R' %}
+                <span class="mana-symbol" title="Red" style="font-size: 1.2em;">
+                    <i class="ms ms-r"></i>
+                </span>
+            {% elif symbol == 'G' %}
+                <span class="mana-symbol" title="Green" style="font-size: 1.2em;">
+                    <i class="ms ms-g"></i>
+                </span>
+            {% elif symbol == 'C' %}
+                <span class="mana-symbol" title="Colorless" style="font-size: 1.2em;">
+                    <i class="ms ms-c"></i>
+                </span>
+            {% elif symbol == 'X' %}
+                <span class="mana-symbol" title="Variable" style="font-size: 1.2em;">
+                    <i class="ms ms-x"></i>
+                </span>
+            {% elif symbol.isdigit %}
+                <!-- Numeric mana cost -->
+                <span class="mana-symbol" title="Generic {{ symbol }}" style="font-size: 1.2em;">
+                    <i class="ms ms-{{ symbol }}"></i>
+                </span>
+            {% else %}
+                <!-- Hybrid or special symbols -->
+                <span class="mana-symbol" title="{{ symbol }}" style="font-size: 1.2em;">
+                    <i class="ms ms-{{ symbol|lower }}"></i>
+                </span>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <span class="text-muted small">No cost</span>
+    {% endif %}
+</div>

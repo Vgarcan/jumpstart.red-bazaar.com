@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}My MTG Collection - Deck List{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 text-center mb-3">My Decks</h1>
+            <p class="lead text-center text-muted">Explore your Magic: The Gathering deck collection</p>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    {% include 'partials/filters.html' %}
+
+    <!-- Advanced Search (Optional) -->
+    {% if show_advanced_search %}
+    <div class="row mb-4">
+        <div class="col-12">
+            {% include 'partials/card_search.html' %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Deck Grid -->
+    <div class="row">
+        {% for deck in decks %}
+            {% include 'partials/deck_card.html' with deck=deck %}
+        {% empty %}
+            <div class="col-12">
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-magic fs-1 mb-3"></i>
+                    <h3>No decks found</h3>
+                    <p>Try adjusting your filters or add some decks to your collection.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <nav aria-label="Deck pagination">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if request.GET.format %}&format={{ request.GET.format }}{% endif %}{% if request.GET.color_identity %}&color_identity={{ request.GET.color_identity }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.format %}&format={{ request.GET.format }}{% endif %}{% if request.GET.color_identity %}&color_identity={{ request.GET.color_identity }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                        </li>
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.format %}&format={{ request.GET.format }}{% endif %}{% if request.GET.color_identity %}&color_identity={{ request.GET.color_identity }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.format %}&format={{ request.GET.format }}{% endif %}{% if request.GET.color_identity %}&color_identity={{ request.GET.color_identity }}{% endif %}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

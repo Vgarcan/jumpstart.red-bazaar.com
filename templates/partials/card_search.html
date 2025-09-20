@@ -1,0 +1,137 @@
+<!-- Advanced Card Search Component -->
+<div class="card">
+    <div class="card-header">
+        <h6 class="mb-0">
+            <i class="fas fa-search me-2"></i>Advanced Search
+        </h6>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <!-- Basic Search -->
+            <div class="col-12">
+                <label class="form-label">Card Name</label>
+                <input type="text" 
+                       class="form-control" 
+                       name="name" 
+                       placeholder="Search by card name..." 
+                       value="{{ request.GET.name }}">
+            </div>
+            
+            <!-- Mana Cost -->
+            <div class="col-md-6">
+                <label class="form-label">Mana Cost</label>
+                <select class="form-select" name="cmc">
+                    <option value="">Any Cost</option>
+                    <option value="0" {% if request.GET.cmc == '0' %}selected{% endif %}>0</option>
+                    <option value="1" {% if request.GET.cmc == '1' %}selected{% endif %}>1</option>
+                    <option value="2" {% if request.GET.cmc == '2' %}selected{% endif %}>2</option>
+                    <option value="3" {% if request.GET.cmc == '3' %}selected{% endif %}>3</option>
+                    <option value="4" {% if request.GET.cmc == '4' %}selected{% endif %}>4</option>
+                    <option value="5" {% if request.GET.cmc == '5' %}selected{% endif %}>5</option>
+                    <option value="6+" {% if request.GET.cmc == '6+' %}selected{% endif %}>6+</option>
+                </select>
+            </div>
+            
+            <!-- Card Type -->
+            <div class="col-md-6">
+                <label class="form-label">Type</label>
+                <select class="form-select" name="type">
+                    <option value="">Any Type</option>
+                    <option value="Creature" {% if request.GET.type == 'Creature' %}selected{% endif %}>Creature</option>
+                    <option value="Instant" {% if request.GET.type == 'Instant' %}selected{% endif %}>Instant</option>
+                    <option value="Sorcery" {% if request.GET.type == 'Sorcery' %}selected{% endif %}>Sorcery</option>
+                    <option value="Enchantment" {% if request.GET.type == 'Enchantment' %}selected{% endif %}>Enchantment</option>
+                    <option value="Artifact" {% if request.GET.type == 'Artifact' %}selected{% endif %}>Artifact</option>
+                    <option value="Planeswalker" {% if request.GET.type == 'Planeswalker' %}selected{% endif %}>Planeswalker</option>
+                    <option value="Land" {% if request.GET.type == 'Land' %}selected{% endif %}>Land</option>
+                </select>
+            </div>
+            
+            <!-- Rarity -->
+            <div class="col-md-6">
+                <label class="form-label">Rarity</label>
+                <select class="form-select" name="rarity">
+                    <option value="">Any Rarity</option>
+                    <option value="Common" {% if request.GET.rarity == 'Common' %}selected{% endif %}>Common</option>
+                    <option value="Uncommon" {% if request.GET.rarity == 'Uncommon' %}selected{% endif %}>Uncommon</option>
+                    <option value="Rare" {% if request.GET.rarity == 'Rare' %}selected{% endif %}>Rare</option>
+                    <option value="Mythic Rare" {% if request.GET.rarity == 'Mythic Rare' %}selected{% endif %}>Mythic Rare</option>
+                </select>
+            </div>
+            
+            <!-- Set -->
+            <div class="col-md-6">
+                <label class="form-label">Set</label>
+                <input type="text" 
+                       class="form-control" 
+                       name="set" 
+                       placeholder="Set code (e.g., SOI)" 
+                       value="{{ request.GET.set }}">
+            </div>
+            
+            <!-- Colors -->
+            <div class="col-12">
+                <label class="form-label">Colors</label>
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="colors" value="W" id="colorW" 
+                                   {% if 'W' in request.GET.colors %}checked{% endif %}>
+                            <label class="form-check-label" for="colorW">
+                                <i class="ms ms-w me-1"></i>White
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="colors" value="U" id="colorU"
+                                   {% if 'U' in request.GET.colors %}checked{% endif %}>
+                            <label class="form-check-label" for="colorU">
+                                <i class="ms ms-u me-1"></i>Blue
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="colors" value="B" id="colorB"
+                                   {% if 'B' in request.GET.colors %}checked{% endif %}>
+                            <label class="form-check-label" for="colorB">
+                                <i class="ms ms-b me-1"></i>Black
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="colors" value="R" id="colorR"
+                                   {% if 'R' in request.GET.colors %}checked{% endif %}>
+                            <label class="form-check-label" for="colorR">
+                                <i class="ms ms-r me-1"></i>Red
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="colors" value="G" id="colorG"
+                                   {% if 'G' in request.GET.colors %}checked{% endif %}>
+                            <label class="form-check-label" for="colorG">
+                                <i class="ms ms-g me-1"></i>Green
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Actions -->
+            <div class="col-12">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                    <a href="?" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>Clear
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

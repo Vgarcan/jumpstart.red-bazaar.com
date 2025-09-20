@@ -1,0 +1,42 @@
+<!-- Deck Statistics Component -->
+<div class="row mb-4">
+    <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-fist-raised text-danger fs-1 mb-2"></i>
+                <h5 class="card-title">Creatures</h5>
+                <p class="card-text fs-4 fw-bold text-danger">{{ stats.creatures|default:0 }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-bolt text-warning fs-1 mb-2"></i>
+                <h5 class="card-title">Instants</h5>
+                <p class="card-text fs-4 fw-bold text-warning">{{ stats.instants|default:0 }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-scroll text-info fs-1 mb-2"></i>
+                <h5 class="card-title">Sorceries</h5>
+                <p class="card-text fs-4 fw-bold text-info">{{ stats.sorceries|default:0 }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-mountain text-success fs-1 mb-2"></i>
+                <h5 class="card-title">Lands</h5>
+                <p class="card-text fs-4 fw-bold text-success">{{ stats.lands|default:0 }}</p>
+            </div>
+        </div>
+    </div>
+</div>

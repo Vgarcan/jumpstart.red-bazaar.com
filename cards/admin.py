@@ -4,19 +4,19 @@ from .models import Card, Deck, CardInDeck
 
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('name', 'mana_cost', 'type_line',
-                    'primary_type', 'created_at')
-    search_fields = ('name', 'primary_type', 'secondary_types', 'mana_cost')
-    ordering = ('primary_type', 'mana_cost', 'name')
+    list_display = ('name', 'mana_cost', 'type', 'subtypes',
+                    'created_at')
+    search_fields = ('name', 'type', 'subtypes', 'mana_cost')
+    ordering = ('type', 'mana_cost', 'name')
     fieldsets = (
         (None,
          {'fields':
-             ('name', 'mana_cost', 'type_line')
+             ('name', 'mana_cost')
           }
          ),
         ('Types',
          {'fields':
-             ('primary_type', 'secondary_types')
+             ('type', 'subtypes')
           }
          ),
         ('Description',

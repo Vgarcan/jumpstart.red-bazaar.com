@@ -1,0 +1,24 @@
+<!-- Rarity Badge Component -->
+{% if rarity %}
+    {% if 'Common' in rarity %}
+        <span class="badge bg-secondary rarity-common">
+            <i class="fas fa-circle me-1"></i>{{ rarity }}
+        </span>
+    {% elif 'Uncommon' in rarity %}
+        <span class="badge bg-info rarity-uncommon">
+            <i class="fas fa-circle me-1"></i>{{ rarity }}
+        </span>
+    {% elif 'Rare' in rarity %}
+        <span class="badge bg-warning rarity-rare">
+            <i class="fas fa-star me-1"></i>{{ rarity }}
+        </span>
+    {% elif 'Mythic' in rarity %}
+        <span class="badge bg-danger rarity-mythic">
+            <i class="fas fa-crown me-1"></i>{{ rarity }}
+        </span>
+    {% else %}
+        <span class="badge bg-secondary">
+            <i class="fas fa-question me-1"></i>{{ rarity }}
+        </span>
+    {% endif %}
+{% endif %}
